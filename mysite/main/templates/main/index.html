@@ -1,36 +1,36 @@
 {% extends 'main/base.html' %}
 
-{% block title %}View List{% endblock %}
+{% block title %}View Todo List{% endblock %}
 
 {% block content %}
-	<h2>{{ls.name}}</h2>
-	<form method="post", action="#">
-		{% csrf_token %}
+    <h2><strong>{{ ls.name }}, Todo</strong></h2> 
+    <br>
+    <form method="post" action="#">
+        {% csrf_token %}
 
-		{% for item in ls.item_set.all%}
-			<div class="input-group mb-3">
-	  			<div class="input-group-prepend">
-	    			<div class="input-group-text">
-	      				<input type="checkbox" name="c{{item.id}}" value="clicked" aria-label="Checkbox for following text input" {% if item.complete %} checked {% endif %}>
-	    			</div>
-	  			</div>
-	  			<input type="text" name="text{{item.id}}" value="{{item.text}}" class="form-control" aria-label="Text input with checkbox">
-			</div>
-		{% endfor %}
+        {% for item in ls.item_set.all %}
+            <div class="form-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <input type="checkbox" name="c{{ item.id }}" value="clicked" aria-label="Checkbox for following text input" {% if item.complete %} checked {% endif %}>
+                    </div>
+                </div>
+                <input type="text" name="text{{ item.id }}" value="{{ item.text }}" class="form-control" aria-label="Text input with checkbox">
+            </div>
+        {% endfor %}
 
-		<div class="input-group mb-3">
-            <div class="input-group mb3">
-                 <input type="text" name="new" value="" class="form-control">
-	  	    </div>
+        <div class="form-group">
+			<label>Point name</label>
+            <input type="text" name="new" value="" class="form-control">
+        </div>
 
-            <br><br><br>
-            <div class="input-group mb-3">
-                <button name="add", value="add", type="submit", class="btn btn-success">Add New</button>
-	  		</div>
-	  		<br>
-              <br>
-		</div>
-		<br>
-		<button name="save", value="save", type="submit", class="btn btn-success">Save</button>
-	</form>
+        <br><br><br>
+        <div class="form-group">
+            <button name="add" value="add" type="submit" class="btn btn-success">Add Point</button>
+        </div>
+        <br>
+        <br>
+
+        <button name="save" value="save" type="submit" class="btn btn-success">Save Points</button>
+    </form>
 {% endblock %}

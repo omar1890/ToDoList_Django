@@ -38,16 +38,16 @@ def index(request, id):
         return render(request, "main/index.html", {"ls": ls})
 
 
-def home(response):
-    return render(response, "main/home.html", {})
-
+def home(request):
+    todo_lists = ToDoList.objects.all()
+    context = {'todo_lists': todo_lists}
+    return render(request, "main/home.html", context)
 
 # def create_list(response):
 # 	return render(response,'main/create_list.html',{'form':form})
 def create_list(response):
     if response.method == "POST":
         form = CreateNewList(response.POST)
-        print(form)
         if form.is_valid():
             n = form.cleaned_data["name"]
             t = ToDoList(name=n)
@@ -58,4 +58,5 @@ def create_list(response):
     else:
         form = CreateNewList()
 
+    print(form)
     return render(response, "main/create_list.html", {"form": form})
